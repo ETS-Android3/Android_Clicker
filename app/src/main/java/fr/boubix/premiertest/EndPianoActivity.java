@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -23,6 +24,18 @@ public class EndPianoActivity extends AppCompatActivity {
     private TextView textScore;
     private View view;
     private TextView score;
+    private int counterTime;
+    private int pts;
+    private boolean etoile1Checked;
+    private boolean etoile2Checked;
+    private boolean etoile3Checked;
+    private boolean etoile4Checked;
+    private boolean etoile5Checked;
+    private ImageView etoile_1;
+    private ImageView etoile_2;
+    private ImageView etoile_3;
+    private ImageView etoile_4;
+    private ImageView etoile_5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +48,16 @@ public class EndPianoActivity extends AppCompatActivity {
         MediaPlayer clicButton = MediaPlayer.create(this, R.raw.button_sound);
 
         getData();
+        setEtoile();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             score.setText(extras.getString("points_piano_tiles"));
+            pts = Integer.parseInt(extras.getString("points_piano_tiles"));
             System.out.println("Score piano : " + extras.getString("points_piano_tiles"));
         }
 
-
+        checkEtoile();
 
         Button button = (Button) findViewById(R.id.menu_principal_piano);
 
@@ -58,6 +73,44 @@ public class EndPianoActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setEtoile(){
+        etoile_1 = (ImageView) findViewById(R.id.etoile_end_1);
+        etoile_2 = (ImageView) findViewById(R.id.etoile_end_2);
+        etoile_3 = (ImageView) findViewById(R.id.etoile_end_3);
+        etoile_4 = (ImageView) findViewById(R.id.etoile_end_4);
+        etoile_5 = (ImageView) findViewById(R.id.etoile_end_5);
+
+        etoile_1.setColorFilter(0xff000000);
+        etoile_2.setColorFilter(0xff000000);
+        etoile_3.setColorFilter(0xff000000);
+        etoile_4.setColorFilter(0xff000000);
+        etoile_5.setColorFilter(0xff000000);
+
+        etoile1Checked = false;
+        etoile2Checked = false;
+        etoile3Checked = false;
+        etoile4Checked = false;
+        etoile5Checked = false;
+    }
+
+    private void checkEtoile(){
+        if (pts > counterTime/3){
+            etoile_1.setColorFilter(0x00000000);
+        }
+        if (pts > counterTime){
+            etoile_2.setColorFilter(0x00000000);
+        }
+        if (pts > counterTime*1.5){
+            etoile_3.setColorFilter(0x00000000);
+        }
+        if (pts > counterTime*2){
+            etoile_4.setColorFilter(0x00000000);
+        }
+        if (pts > counterTime*3){
+            etoile_5.setColorFilter(0x00000000);
+        }
     }
 
     private void getData(){
@@ -78,6 +131,7 @@ public class EndPianoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        counterTime = Integer.parseInt(res2.get(1).toString());
         soundCheck = res2.get(3).toString();
         themeCheck = res2.get(4).toString();
 

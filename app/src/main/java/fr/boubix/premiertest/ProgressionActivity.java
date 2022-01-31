@@ -1,17 +1,17 @@
 package fr.boubix.premiertest;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,29 +20,20 @@ import java.util.ArrayList;
 
 public class ProgressionActivity extends AppCompatActivity {
 
-    private LineGraphSeries<DataPoint> series;
-    private File file;
-    private ArrayList res = new ArrayList<String>();
-    private View view;
-    private TextView text;
-    private ImageView back_button;
-    private GraphView graph;
     private String sound_check;
+    private MediaPlayer back_sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_progression2);
-
-        view = this.getWindow().getDecorView();
-        MediaPlayer back_sound = MediaPlayer.create(this, R.raw.back_sound);
-        text = (TextView) findViewById(R.id.progression_text);
-        back_button = (ImageView) findViewById(R.id.button_back_progression);
-
-        setOption();
+        setContentView(R.layout.activity_progression);
 
         File path = getApplicationContext().getExternalFilesDir("");
-        file  = new File(path, "save_game_clicker.txt");
+        File file  = new File(path, "save_data_clicker.txt");
+        ArrayList res = new ArrayList<String>();
+        MediaPlayer click_sound = MediaPlayer.create(this, R.raw.button_sound);
+        back_sound = MediaPlayer.create(this, R.raw.back_sound);
+        View viewMain = this.getWindow().getDecorView();
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -57,28 +48,47 @@ public class ProgressionActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        sound_check = res.get(3).toString();
+        String theme = res.get(4).toString();
 
-        double x, y;
-        x = 0;
-        y = 0;
+        TextView text = (TextView) findViewById(R.id.text_progression);
+        ImageView img = (ImageView) findViewById(R.id.back_button_progression);
 
-        graph = (GraphView) findViewById(R.id.graph);
-        series = new LineGraphSeries<DataPoint>();
-        for (int i = 0; i < res.size() - 1; i++){
-            x += 1;
-            series.appendData(new DataPoint(x, Integer.parseInt((String) res.get(i))), true, res.size() - 1);
+        if (theme.equals("clair")){
+            text.setTextColor(0xff000000);
+            img.setColorFilter(0xff000000);
+            viewMain.setBackgroundColor(0xffffffff);
+        } else if (theme.equals("sombre")){
+            text.setTextColor(0xffffffff);
+            img.setColorFilter(0xffffffff);
+            viewMain.setBackgroundColor(0xff000000);
         }
-        graph.addSeries(series);
 
-        ImageView back = (ImageView) findViewById(R.id.button_back_progression);
-        back.setOnClickListener(new View.OnClickListener() {
+        Button clickerBtn = (Button) findViewById(R.id.button_clicker_progression);
+        Button aimClickerBtn = (Button) findViewById(R.id.button_aim_clicker_progression);
+        Button pianoTilesBtn = (Button) findViewById(R.id.button_piano_tiles_progression);
+
+        aimClickerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sound_check.equals("on")) {
+                    click_sound.start();
+                }
+                Intent otherActivity = new Intent(getApplicationContext(), ProgressionAimClickerActivity.class);
+                startActivity(otherActivity);
+                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                finish();
+            }
+        });
+
+        img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (sound_check.equals("on")) {
                     back_sound.start();
                 }
-                Intent nextActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(nextActivity);
+                Intent otherActivity = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(otherActivity);
                 overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
                 finish();
             }
@@ -90,35 +100,5 @@ public class ProgressionActivity extends AppCompatActivity {
         startActivity(nextActivity);
         overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
         finish();
-    }
-
-    private void setOption(){
-        File path = getApplicationContext().getExternalFilesDir("");
-        File file  = new File(path, "save_data_clicker.txt");
-        ArrayList res = new ArrayList<String>();
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-            while (line != null){
-                line = reader.readLine();
-                res.add(line);
-            }
-            reader.close();
-
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        //Set theme
-        if (res.get(4).equals("clair")){
-            view.setBackgroundResource(R.color.white); //Set theme white
-            text.setTextColor(0xff000000);
-        }else if (res.get(4).equals("sombre")){
-            view.setBackgroundResource(R.color.black); //Set theme black
-            text.setTextColor(0xffffffff);
-            back_button.setColorFilter(0xffffffff);
-        }
-        sound_check = res.get(3).toString();
     }
 }

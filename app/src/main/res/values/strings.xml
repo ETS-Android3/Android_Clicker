@@ -3,4 +3,9 @@
     <string name="start_msg">Bienvenue sur ces minis jeux de clicker</string>
     <string name="points_msg">Points : 0</string>
     <string name="_0">0</string>
+    <string name="title_activity_progression1">ProgressionActivity1</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

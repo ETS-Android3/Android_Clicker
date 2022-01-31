@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 Intent otherActivity = new Intent(getApplicationContext(), PianoTilesActivity.class);
                 startActivity(otherActivity);
-                overridePendingTransition(R.anim.lefttoright, R.anim.righttoleft);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                 finish();
             }
         });

@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PremierTest">
         <activity
+            android:name=".ProgressionAimClickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".EndPianoActivity"
             android:exported="false" />
         <activity

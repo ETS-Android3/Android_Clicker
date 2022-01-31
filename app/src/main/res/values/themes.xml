@@ -14,4 +14,13 @@
         <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="Theme.PremierTest.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.PremierTest.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.PremierTest.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

@@ -55,6 +55,7 @@ public class PianoTilesActivity extends AppCompatActivity {
     private boolean etoile3Checked;
     private boolean etoile4Checked;
     private boolean etoile5Checked;
+    private int[] tabPosition;
 
 
 
@@ -69,13 +70,19 @@ public class PianoTilesActivity extends AppCompatActivity {
         clic_sound = MediaPlayer.create(this, R.raw.clic_ball_sound);
         starSound = MediaPlayer.create(this, R.raw.etoile_sound);
 
+        tabPosition = new int[12];
+        tabPosition[0] = -390;
+        for (int i = 1; i < 12; i++){
+            tabPosition[i] = tabPosition[i - 1] - 390;
+        }
+
         getData();
         setEtoile();
         setDifficulte();
 
         new CountDownTimer(counterTime*1000, 1){
             public void onTick(long millisUntilFinished){
-                scoreText.setText("Temps : " + String.valueOf(counterTime - counter/50));
+                scoreText.setText("Temps : " + String.valueOf(counterTime - counter/25));
 
                 checkButton(piano_button_left_1);
                 checkButton(piano_button_left_2);
@@ -194,157 +201,158 @@ public class PianoTilesActivity extends AppCompatActivity {
 
     private void checkButtonPosition(){
         Random rand = new Random();
+
         //Left
         if (piano_button_left_1.getY() > 2340 && piano_button_left_2.getY() > 0){
-            piano_button_left_1.setY(rand.nextInt(((int)piano_button_left_2.getY() - (int)piano_button_left_2.getY() - 429) + 1000) - 1000);
-            if ((piano_button_left_1.getY() + 143) > piano_button_left_2.getY()){
-                piano_button_left_1.setY(piano_button_left_1.getY() - 143);
+            piano_button_left_1.setY(rand.nextInt(((int)piano_button_left_2.getY() - (int)piano_button_left_2.getY() - 390) + 1170) - 1170);
+            if ((piano_button_left_1.getY() + 390) > piano_button_left_2.getY()){
+                piano_button_left_1.setY(piano_button_left_1.getY() - 390);
             }
-            piano_button_left_1.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_left_1.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_left_2.getY() > 2340 && piano_button_left_3.getY() > 0){
-            piano_button_left_2.setY(rand.nextInt(((int)piano_button_left_3.getY() - (int)piano_button_left_3.getY() - 429) + 1000) - 1000);
-            if ((piano_button_left_2.getY() + 143) > piano_button_left_3.getY()){
-                piano_button_left_2.setY(piano_button_left_2.getY() - 143);
+            piano_button_left_2.setY(rand.nextInt(((int)piano_button_left_3.getY() - (int)piano_button_left_3.getY() - 390) + 1170) - 1170);
+            if ((piano_button_left_2.getY() + 390) > piano_button_left_3.getY()){
+                piano_button_left_2.setY(piano_button_left_2.getY() - 390);
             }
-            piano_button_left_2.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_left_2.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_left_3.getY() > 2340 && piano_button_left_4.getY() > 0){
-            piano_button_left_3.setY(rand.nextInt(((int)piano_button_left_4.getY() - (int)piano_button_left_4.getY() - 429) + 1000) - 1000);
-            if ((piano_button_left_3.getY() + 143) > piano_button_left_4.getY()){
-                piano_button_left_3.setY(piano_button_left_3.getY() - 143);
+            piano_button_left_3.setY(rand.nextInt(((int)piano_button_left_4.getY() - (int)piano_button_left_4.getY() - 390) + 1170) - 1170);
+            if ((piano_button_left_3.getY() + 390) > piano_button_left_4.getY()){
+                piano_button_left_3.setY(piano_button_left_3.getY() - 390);
             }
-            piano_button_left_3.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_left_3.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_left_4.getY() > 2340 && piano_button_left_1.getY() > 0){
-            piano_button_left_4.setY(rand.nextInt(((int)piano_button_left_1.getY() - (int)piano_button_left_1.getY() - 429) + 1000) - 1000);
-            if ((piano_button_left_4.getY() + 143) > piano_button_left_1.getY()){
-                piano_button_left_4.setY(piano_button_left_4.getY() - 143);
+            piano_button_left_4.setY(rand.nextInt(((int)piano_button_left_1.getY() - (int)piano_button_left_1.getY() - 390) + 1170) - 1170);
+            if ((piano_button_left_4.getY() + 390) > piano_button_left_1.getY()){
+                piano_button_left_4.setY(piano_button_left_4.getY() - 390);
             }
-            piano_button_left_4.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_left_4.setImageResource(R.drawable.piano_tiles_button);
         }
 
         //Middle left
         if (piano_button_middle_left_1.getY() > 2340 && piano_button_middle_left_2.getY() > 0){
-            piano_button_middle_left_1.setY(rand.nextInt(((int)piano_button_middle_left_2.getY() - (int)piano_button_middle_left_2.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_left_1.getY() + 143) > piano_button_middle_left_2.getY()){
-                piano_button_middle_left_1.setY(piano_button_middle_left_1.getY() - 143);
+            piano_button_middle_left_1.setY(rand.nextInt(((int)piano_button_middle_left_2.getY() - (int)piano_button_middle_left_2.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_left_1.getY() + 390) > piano_button_middle_left_2.getY()){
+                piano_button_middle_left_1.setY(piano_button_middle_left_1.getY() - 390);
             }
-            piano_button_middle_left_1.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_left_1.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_middle_left_2.getY() > 2340 && piano_button_middle_left_3.getY() > 0){
-            piano_button_middle_left_2.setY(rand.nextInt(((int)piano_button_middle_left_3.getY() - (int)piano_button_middle_left_3.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_left_2.getY() + 143) > piano_button_middle_left_3.getY()){
-                piano_button_middle_left_2.setY(piano_button_middle_left_2.getY() - 143);
+            piano_button_middle_left_2.setY(rand.nextInt(((int)piano_button_middle_left_3.getY() - (int)piano_button_middle_left_3.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_left_2.getY() + 390) > piano_button_middle_left_3.getY()){
+                piano_button_middle_left_2.setY(piano_button_middle_left_2.getY() - 390);
             }
-            piano_button_middle_left_2.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_left_2.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_middle_left_3.getY() > 2340 && piano_button_middle_left_4.getY() > 0){
-            piano_button_middle_left_3.setY(rand.nextInt(((int)piano_button_middle_left_4.getY() - (int)piano_button_middle_left_4.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_left_3.getY() + 143) > piano_button_middle_left_4.getY()){
-                piano_button_middle_left_3.setY(piano_button_middle_left_3.getY() - 143);
+            piano_button_middle_left_3.setY(rand.nextInt(((int)piano_button_middle_left_4.getY() - (int)piano_button_middle_left_4.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_left_3.getY() + 390) > piano_button_middle_left_4.getY()){
+                piano_button_middle_left_3.setY(piano_button_middle_left_3.getY() - 390);
             }
-            piano_button_middle_left_3.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_left_3.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_middle_left_4.getY() > 2340 && piano_button_middle_left_1.getY() > 0){
-            piano_button_middle_left_4.setY(rand.nextInt(((int)piano_button_middle_left_1.getY() - (int)piano_button_middle_left_1.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_left_4.getY() + 143) > piano_button_middle_left_1.getY()){
-                piano_button_middle_left_4.setY(piano_button_middle_left_4.getY() - 143);
+            piano_button_middle_left_4.setY(rand.nextInt(((int)piano_button_middle_left_1.getY() - (int)piano_button_middle_left_1.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_left_4.getY() + 390) > piano_button_middle_left_1.getY()){
+                piano_button_middle_left_4.setY(piano_button_middle_left_4.getY() - 390);
             }
-            piano_button_middle_left_4.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_left_4.setImageResource(R.drawable.piano_tiles_button);
         }
 
         //Middle right
         if (piano_button_middle_right_1.getY() > 2340 && piano_button_middle_right_2.getY() > 0){
-            piano_button_middle_right_1.setY(rand.nextInt(((int)piano_button_middle_right_2.getY() - (int)piano_button_middle_right_2.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_right_1.getY() + 143) > piano_button_middle_right_2.getY()){
-                piano_button_middle_right_1.setY(piano_button_middle_right_1.getY() - 143);
+            piano_button_middle_right_1.setY(rand.nextInt(((int)piano_button_middle_right_2.getY() - (int)piano_button_middle_right_2.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_right_1.getY() + 390) > piano_button_middle_right_2.getY()){
+                piano_button_middle_right_1.setY(piano_button_middle_right_1.getY() - 390);
             }
-            piano_button_middle_right_1.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_right_1.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_middle_right_2.getY() > 2340 && piano_button_middle_right_3.getY() > 0){
-            piano_button_middle_right_2.setY(rand.nextInt(((int)piano_button_middle_right_3.getY() - (int)piano_button_middle_right_3.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_right_2.getY() + 143) > piano_button_middle_right_3.getY()){
-                piano_button_middle_right_2.setY(piano_button_middle_right_2.getY() - 143);
+            piano_button_middle_right_2.setY(rand.nextInt(((int)piano_button_middle_right_3.getY() - (int)piano_button_middle_right_3.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_right_2.getY() + 390) > piano_button_middle_right_3.getY()){
+                piano_button_middle_right_2.setY(piano_button_middle_right_2.getY() - 390);
             }
-            piano_button_middle_right_2.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_right_2.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_middle_right_3.getY() > 2340 && piano_button_middle_right_4.getY() > 0){
-            piano_button_middle_right_3.setY(rand.nextInt(((int)piano_button_middle_right_4.getY() - (int)piano_button_middle_right_4.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_right_3.getY() + 143) > piano_button_middle_right_4.getY()){
-                piano_button_middle_right_3.setY(piano_button_middle_right_3.getY() - 143);
+            piano_button_middle_right_3.setY(rand.nextInt(((int)piano_button_middle_right_4.getY() - (int)piano_button_middle_right_4.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_right_3.getY() + 390) > piano_button_middle_right_4.getY()){
+                piano_button_middle_right_3.setY(piano_button_middle_right_3.getY() - 390);
             }
-            piano_button_middle_right_3.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_right_3.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_middle_right_4.getY() > 2340 && piano_button_middle_right_1.getY() > 0){
-            piano_button_middle_right_4.setY(rand.nextInt(((int)piano_button_middle_right_1.getY() - (int)piano_button_middle_right_1.getY() - 429) + 1000) - 1000);
-            if ((piano_button_middle_right_4.getY() + 143) > piano_button_middle_right_1.getY()){
-                piano_button_middle_right_4.setY(piano_button_middle_right_4.getY() - 143);
+            piano_button_middle_right_4.setY(rand.nextInt(((int)piano_button_middle_right_1.getY() - (int)piano_button_middle_right_1.getY() - 390) + 1170) - 1170);
+            if ((piano_button_middle_right_4.getY() + 390) > piano_button_middle_right_1.getY()){
+                piano_button_middle_right_4.setY(piano_button_middle_right_4.getY() - 390);
             }
-            piano_button_middle_right_4.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_middle_right_4.setImageResource(R.drawable.piano_tiles_button);
         }
 
         //Right
         if (piano_button_right_1.getY() > 2340 && piano_button_right_2.getY() > 0){
-            piano_button_right_1.setY(rand.nextInt(((int)piano_button_right_2.getY() - (int)piano_button_right_2.getY() - 429) + 1000) - 1000);
-            if ((piano_button_right_1.getY() + 143) > piano_button_right_2.getY()){
-                piano_button_right_1.setY(piano_button_right_1.getY() - 143);
+            piano_button_right_1.setY(rand.nextInt(((int)piano_button_right_2.getY() - (int)piano_button_right_2.getY() - 390) + 1170) - 1170);
+            if ((piano_button_right_1.getY() + 390) > piano_button_right_2.getY()){
+                piano_button_right_1.setY(piano_button_right_1.getY() - 390);
             }
-            piano_button_right_1.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_right_1.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_right_2.getY() > 2340 && piano_button_right_3.getY() > 0){
-            piano_button_right_2.setY(rand.nextInt(((int)piano_button_right_3.getY() - (int)piano_button_right_3.getY() - 429) + 1000) - 1000);
-            if ((piano_button_right_2.getY() + 143) > piano_button_right_3.getY()){
-                piano_button_right_2.setY(piano_button_right_2.getY() - 143);
+            piano_button_right_2.setY(rand.nextInt(((int)piano_button_right_3.getY() - (int)piano_button_right_3.getY() - 390) + 1170) - 1170);
+            if ((piano_button_right_2.getY() + 390) > piano_button_right_3.getY()){
+                piano_button_right_2.setY(piano_button_right_2.getY() - 390);
             }
-            piano_button_right_2.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_right_2.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_right_3.getY() > 2340 && piano_button_right_4.getY() > 0){
-            piano_button_right_3.setY(rand.nextInt(((int)piano_button_right_4.getY() - (int)piano_button_right_4.getY() - 429) + 1000) - 1000);
-            if ((piano_button_right_3.getY() + 143) > piano_button_right_3.getY()){
-                piano_button_right_3.setY(piano_button_right_4.getY() - 143);
+            piano_button_right_3.setY(rand.nextInt(((int)piano_button_right_4.getY() - (int)piano_button_right_4.getY() - 390) + 1170) - 1170);
+            if ((piano_button_right_3.getY() + 390) > piano_button_right_3.getY()){
+                piano_button_right_3.setY(piano_button_right_4.getY() - 390);
             }
-            piano_button_right_3.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_right_3.setImageResource(R.drawable.piano_tiles_button);
         }
         if (piano_button_right_4.getY() > 2340 && piano_button_right_1.getY() > 0){
-            piano_button_right_4.setY(rand.nextInt(((int)piano_button_right_1.getY() - (int)piano_button_right_1.getY() - 429) + 1000) - 1000);
-            if ((piano_button_right_4.getY() + 143) > piano_button_right_1.getY()){
-                piano_button_right_4.setY(piano_button_right_4.getY() - 143);
+            piano_button_right_4.setY(rand.nextInt(((int)piano_button_right_1.getY() - (int)piano_button_right_1.getY() - 390) + 1170) - 1170);
+            if ((piano_button_right_4.getY() + 390) > piano_button_right_1.getY()){
+                piano_button_right_4.setY(piano_button_right_4.getY() - 390);
             }
-            piano_button_right_4.setBackgroundResource(R.drawable.piano_tiles_button);
+            piano_button_right_4.setImageResource(R.drawable.piano_tiles_button);
         }
     }
 
     private void checkEtoile(){
-        if (pts > counterTime/5){
+        if (pts > counterTime/3){
             if (soundCheck.equals("on") && !etoile1Checked){
                 starSound.start();
                 etoile1Checked = true;
             }
             etoile_1.setColorFilter(0x00000000);
         }
-        if (pts > counterTime/4){
+        if (pts > counterTime){
             if (soundCheck.equals("on") && !etoile2Checked){
                 starSound.start();
                 etoile2Checked = true;
             }
             etoile_2.setColorFilter(0x00000000);
         }
-        if (pts > counterTime/3){
+        if (pts > counterTime*1.5){
             if (soundCheck.equals("on") && !etoile3Checked){
                 starSound.start();
                 etoile3Checked = true;
             }
             etoile_3.setColorFilter(0x00000000);
         }
-        if (pts > counterTime/2){
+        if (pts > counterTime*2){
             if (soundCheck.equals("on") && !etoile4Checked){
                 starSound.start();
                 etoile4Checked = true;
             }
             etoile_4.setColorFilter(0x00000000);
         }
-        if (pts > counterTime){
+        if (pts > counterTime*3){
             if (soundCheck.equals("on") && !etoile5Checked){
                 starSound.start();
                 etoile5Checked = true;
