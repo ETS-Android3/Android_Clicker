@@ -10,9 +10,12 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -111,6 +114,11 @@ public class PianoTilesActivity extends AppCompatActivity {
             public void onFinish(){
                 if (counter >= 10) {
                     Intent nextActivity = new Intent(getApplicationContext(), EndPianoActivity.class);
+                    try {
+                        saveGame();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     nextActivity.putExtra("points_piano_tiles", String.valueOf(pts));
                     startActivity(nextActivity);
                     overridePendingTransition(R.anim.fadein, R.anim.fadeout);
@@ -118,6 +126,33 @@ public class PianoTilesActivity extends AppCompatActivity {
                 }
             }
         }.start();
+    }
+
+    public void saveGame() throws FileNotFoundException {
+        File path = getApplicationContext().getExternalFilesDir("");
+        File file  = new File(path, "save_game_piano_tiles_" + String.valueOf(counterTime) + ".txt");
+        FileOutputStream writer = new FileOutputStream(file, true);
+
+        if (file.length() == 0){
+            try {
+                String str = "0\n"; //Ligne 0
+                writer.write(str.getBytes());
+                str = "0\n"; //Ligne 1
+                writer.write(str.getBytes());
+                writer.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                String str = String.valueOf(pts) + "\n"; //Ligne 0
+                writer.write(str.getBytes());
+                writer.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Toast.makeText(getApplicationContext(), "Sauvegarde réussie", Toast.LENGTH_SHORT).show();
     }
 
     private void getData(){

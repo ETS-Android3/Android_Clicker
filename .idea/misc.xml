@@ -8,6 +8,7 @@
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.332" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_cookie.xml" value="0.33" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_end.xml" value="0.3625" />
+        <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_end_clicker.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_end_cookie.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_end_piano.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_main.xml" value="0.33" />
@@ -18,6 +19,8 @@
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_progression.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_progression2.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_progression_aim_clicker.xml" value="0.3484375" />
+        <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_progression_clicker.xml" value="0.3625" />
+        <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_progression_piano.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/activity_win.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/fragment_first.xml" value="0.3625" />
         <entry key="..\:/Users/yofer/AndroidStudioProjects/PremierTest/app/src/main/res/layout/fragment_progression.xml" value="0.22871376811594202" />

@@ -44,6 +44,7 @@ public class EndPianoActivity extends AppCompatActivity {
 
         textScore = (TextView) findViewById(R.id.score_piano);
         score = (TextView) findViewById(R.id.number_of_points_piano);
+        percent = (TextView) findViewById(R.id.percent_display_piano);
         view = this.getWindow().getDecorView();
         MediaPlayer clicButton = MediaPlayer.create(this, R.raw.button_sound);
 
@@ -58,9 +59,10 @@ public class EndPianoActivity extends AppCompatActivity {
         }
 
         checkEtoile();
+        getSaveGame();
+        calculPercent();
 
         Button button = (Button) findViewById(R.id.menu_principal_piano);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +75,38 @@ public class EndPianoActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void calculPercent(){
+        float temp = Integer.parseInt((String) res.get(res.size() - 3));
+        temp = ((pts - temp)/temp) * 100;
+
+        if ((int)temp > 0){
+            percent.setTextColor(0xff00ff00); //Green
+            percent.setText("+ " + (int)temp + " %");
+        }else if ((int)temp < 0){
+            percent.setTextColor(0xffff0000); //Red
+            percent.setText(" " + (int)temp + " %");
+        }else{
+            percent.setText("+ 0 %");
+        }
+    }
+
+    private void getSaveGame(){
+        File path = getApplicationContext().getExternalFilesDir("");
+        File file  = new File(path, "save_game_aim_clicker_" + counterTime + ".txt");
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            while (line != null){
+                line = reader.readLine();
+                res.add(line);
+            }
+            reader.close();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setEtoile(){

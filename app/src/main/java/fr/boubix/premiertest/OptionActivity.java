@@ -61,27 +61,10 @@ public class OptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
 
-        viewMain = this.getWindow().getDecorView();
-        colorButton = (Button) findViewById(R.id.button_color);
-        timeCibles = (EditText) findViewById(R.id.edit_cibles_time);
-        levelButton = (Button) findViewById(R.id.button_cibles_level);
-        switchSound = (Switch) findViewById(R.id.switch_sound);
-        supprButton = (Button) findViewById(R.id.button_delete_data);
-        switchTheme = (Switch) findViewById(R.id.switch_theme);
-        saveSupprButton = (Button) findViewById(R.id.button_delate_save);
-        back = (ImageView) findViewById(R.id.back_button);
-        text1 = (TextView) findViewById(R.id.textView1);
-        text2 = (TextView) findViewById(R.id.textView2);
-        text3 = (TextView) findViewById(R.id.textView3);
-        text4 = (TextView) findViewById(R.id.textView4);
-        text5 = (TextView) findViewById(R.id.textView5);
-        text6 = (TextView) findViewById(R.id.textView6);
-        text7 = (TextView) findViewById(R.id.textView7);
-        text8 = (TextView) findViewById(R.id.textView8);
-        text9=  (TextView) findViewById(R.id.text_delete_save);
-        setOptionValues();
-
         MediaPlayer back_sound = MediaPlayer.create(this, R.raw.back_sound);
+
+        initialisationVariable();
+        setOptionValues();
 
         colorButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +98,9 @@ public class OptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 time = timeCibles.getText().toString();
+                if (Integer.parseInt(time) > 120){
+                    Toast.makeText(getApplicationContext(), "Erreur, entrez un nombre inférieur à 120 !", Toast.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -184,10 +170,25 @@ public class OptionActivity extends AppCompatActivity {
         saveSupprButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Supprimer le save txt
+                //Supprimer les save game txt
                 File path = getApplicationContext().getExternalFilesDir("");
-                File file  = new File(path, "save_game_clicker.txt");
-                file.delete();
+                File file;
+                for (int i = 0; i < 120; i++){
+                    file = new File(path, "save_game_clicker_" + String.valueOf(i) + ".txt");
+                    if (file.exists()){
+                        file.delete();
+                    }
+
+                    file = new File(path, "save_game_aim_clicker_" + String.valueOf(i) + ".txt");
+                    if (file.exists()){
+                        file.delete();
+                    }
+
+                    file = new File(path, "save_game_piano_tiles_" + String.valueOf(i) + ".txt");
+                    if (file.exists()){
+                        file.delete();
+                    }
+                }
                 Toast.makeText(getApplicationContext(), "Suppression réussie", Toast.LENGTH_SHORT).show();
             }
         });
@@ -211,6 +212,27 @@ public class OptionActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void initialisationVariable(){
+        viewMain = this.getWindow().getDecorView();
+        colorButton = (Button) findViewById(R.id.button_color);
+        timeCibles = (EditText) findViewById(R.id.edit_cibles_time);
+        levelButton = (Button) findViewById(R.id.button_cibles_level);
+        switchSound = (Switch) findViewById(R.id.switch_sound);
+        supprButton = (Button) findViewById(R.id.button_delete_data);
+        switchTheme = (Switch) findViewById(R.id.switch_theme);
+        saveSupprButton = (Button) findViewById(R.id.button_delate_save);
+        back = (ImageView) findViewById(R.id.back_button);
+        text1 = (TextView) findViewById(R.id.textView1);
+        text2 = (TextView) findViewById(R.id.textView2);
+        text3 = (TextView) findViewById(R.id.textView3);
+        text4 = (TextView) findViewById(R.id.textView4);
+        text5 = (TextView) findViewById(R.id.textView5);
+        text6 = (TextView) findViewById(R.id.textView6);
+        text7 = (TextView) findViewById(R.id.textView7);
+        text8 = (TextView) findViewById(R.id.textView8);
+        text9=  (TextView) findViewById(R.id.text_delete_save);
     }
 
     @Override

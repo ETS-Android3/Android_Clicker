@@ -28,6 +28,7 @@ public class ProgressionAimClickerActivity extends AppCompatActivity {
     private ImageView back_button;
     private GraphView graph;
     private String sound_check;
+    private int counterTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,41 +37,14 @@ public class ProgressionAimClickerActivity extends AppCompatActivity {
 
         view = this.getWindow().getDecorView();
         MediaPlayer back_sound = MediaPlayer.create(this, R.raw.back_sound);
-        text = (TextView) findViewById(R.id.progression_text);
-        back_button = (ImageView) findViewById(R.id.button_back_progression);
+        text = (TextView) findViewById(R.id.progression_text_aim_clicker);
+        back_button = (ImageView) findViewById(R.id.button_back_progression_aim_clicker);
 
         setOption();
+        getSaveGame();
+        setGraph();
 
-        File path = getApplicationContext().getExternalFilesDir("");
-        file  = new File(path, "save_game_clicker.txt");
-
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            String line = reader.readLine();
-            while (line != null){
-                line = reader.readLine();
-                res.add(line);
-            }
-            reader.close();
-
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        double x, y;
-        x = 0;
-        y = 0;
-
-        graph = (GraphView) findViewById(R.id.graph);
-        series = new LineGraphSeries<DataPoint>();
-        for (int i = 0; i < res.size() - 1; i++){
-            x += 1;
-            series.appendData(new DataPoint(x, Integer.parseInt((String) res.get(i))), true, res.size() - 1);
-        }
-        graph.addSeries(series);
-
-        ImageView back = (ImageView) findViewById(R.id.button_back_progression);
+        ImageView back = (ImageView) findViewById(R.id.button_back_progression_aim_clicker);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,6 +57,37 @@ public class ProgressionAimClickerActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void setGraph(){
+        double x, y;
+        x = 0;
+        y = 0;
+
+        graph = (GraphView) findViewById(R.id.graph_aim_clicker);
+        series = new LineGraphSeries<DataPoint>();
+        for (int i = 0; i < res.size() - 1; i++){
+            x += 1;
+            series.appendData(new DataPoint(x, Integer.parseInt((String) res.get(i))), true, res.size() - 1);
+        }
+        graph.addSeries(series);
+    }
+
+    private void getSaveGame(){
+        File path = getApplicationContext().getExternalFilesDir("");
+        file  = new File(path, "save_game_aim_clicker_" + String.valueOf(counterTime) + ".txt");
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+            while (line != null){
+                line = reader.readLine();
+                res.add(line);
+            }
+            reader.close();
+
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onBackPressed(){
@@ -119,6 +124,7 @@ public class ProgressionAimClickerActivity extends AppCompatActivity {
             text.setTextColor(0xffffffff);
             back_button.setColorFilter(0xffffffff);
         }
+        counterTime = Integer.parseInt(res.get(1).toString());
         sound_check = res.get(3).toString();
     }
 }

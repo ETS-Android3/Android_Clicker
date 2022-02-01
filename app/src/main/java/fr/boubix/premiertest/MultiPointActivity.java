@@ -1,32 +1,23 @@
 package fr.boubix.premiertest;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -59,46 +50,23 @@ public class MultiPointActivity extends AppCompatActivity {
         view = this.getWindow().getDecorView();
         this.time = (TextView) findViewById(R.id.time);
         this.points = (TextView) findViewById(R.id.points);
-
-        setOptionValues();
-
-        button1 = (ImageView) findViewById(R.id.button1);
-        button2 = (ImageView) findViewById(R.id.button2);
-        button3 = (ImageView) findViewById(R.id.button3);
-
-        button1.setColorFilter(colorId);
-        button2.setColorFilter(colorId);
-        button3.setColorFilter(colorId);
-
-
         clic_sound = MediaPlayer.create(this, R.raw.clic_ball_sound);
 
+        setOptionValues();
+        initialisationButton();
         setDifficulte();
-
 
         new CountDownTimer(counterTime*1000, 100){
             public void onTick(long millisUntilFinished){
                 time.setText("Temps : " + String.valueOf(counterTime - counter/10));
-
-                button1.getLayoutParams().width -= coeff;
-                button1.getLayoutParams().height -= coeff;
-                checkButton(button1);
-
-                button2.getLayoutParams().width -= coeff;
-                button2.getLayoutParams().height -= coeff;
-                checkButton(button2);
-
-                button3.getLayoutParams().width -= coeff;
-                button3.getLayoutParams().height -= coeff;
-                checkButton(button3);
-
+                updateButton();
                 counter++;
             }
 
             public void onFinish(){
                 time.setText("FINISH!!");
                 try {
-                    saveInterne();
+                    saveGame();
                 } catch (IOException e) {
                     System.out.println("Erreur sauvegarde : ");
                     e.printStackTrace();
@@ -111,16 +79,28 @@ public class MultiPointActivity extends AppCompatActivity {
                 }
 
                 if (counter >= 10) {
-                    Intent nextActivity = new Intent(getApplicationContext(), EndActivity.class);
+                    Intent nextActivity = new Intent(getApplicationContext(), EndAimClickerActivity.class);
                     nextActivity.putExtra("points_aim_clicker", pts);
-                    nextActivity.putExtra("caller", "MultiPointActivity");
-                    nextActivity.putExtra("fichier", path.toString());
                     startActivity(nextActivity);
                     overridePendingTransition(R.anim.fadein, R.anim.fadeout);
                     finish();
                 }
             }
         }.start();
+    }
+
+    private void updateButton(){
+        button1.getLayoutParams().width -= coeff;
+        button1.getLayoutParams().height -= coeff;
+        checkButton(button1);
+
+        button2.getLayoutParams().width -= coeff;
+        button2.getLayoutParams().height -= coeff;
+        checkButton(button2);
+
+        button3.getLayoutParams().width -= coeff;
+        button3.getLayoutParams().height -= coeff;
+        checkButton(button3);
     }
 
     private void setOptionValues(){
@@ -178,6 +158,16 @@ public class MultiPointActivity extends AppCompatActivity {
         finish();
     }
 
+    private void initialisationButton(){
+        button1 = (ImageView) findViewById(R.id.button1);
+        button2 = (ImageView) findViewById(R.id.button2);
+        button3 = (ImageView) findViewById(R.id.button3);
+
+        button1.setColorFilter(colorId);
+        button2.setColorFilter(colorId);
+        button3.setColorFilter(colorId);
+    }
+
     public void checkButton(ImageView bt){
         bt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -211,17 +201,31 @@ public class MultiPointActivity extends AppCompatActivity {
         }
     }
 
-    private void saveInterne() throws IOException {
-        path = getApplicationContext().getExternalFilesDir("");
-        file  = new File(path, "save_game_clicker.txt");
+    public void saveGame() throws FileNotFoundException {
+        File path = getApplicationContext().getExternalFilesDir("");
+        File file  = new File(path, "save_game_aim_clicker_" + String.valueOf(counterTime) + ".txt");
         FileOutputStream writer = new FileOutputStream(file, true);
-        String str = String.valueOf(pts);
-        writer.write(str.getBytes());
-        String temp = "\n";
-        writer.write(temp.getBytes());
-        writer.close();
+
+        if (file.length() == 0){
+            try {
+                String str = "0\n"; //Ligne 0
+                writer.write(str.getBytes());
+                str = "0\n"; //Ligne 1
+                writer.write(str.getBytes());
+                writer.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                String str = String.valueOf(pts) + "\n"; //Ligne 0
+                writer.write(str.getBytes());
+                writer.close();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         Toast.makeText(getApplicationContext(), "Sauvegarde réussie", Toast.LENGTH_SHORT).show();
-        System.out.println("Chemin : " + file);
     }
 
     private void setDifficulte(){

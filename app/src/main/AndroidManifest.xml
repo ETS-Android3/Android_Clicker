@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PremierTest">
         <activity
+            android:name=".ProgressionPianoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProgressionClickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EndClickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ProgressionAimClickerActivity"
             android:exported="false" />
         <activity
@@ -22,19 +31,16 @@
             android:name=".OptionActivity"
             android:exported="false" />
         <activity
-            android:name=".EndCookieActivity"
-            android:exported="false" />
-        <activity
             android:name=".ProgressionActivity"
             android:exported="false" />
         <activity
-            android:name=".EndActivity"
+            android:name=".EndAimClickerActivity"
             android:exported="false" />
         <activity
             android:name=".MultiPointActivity"
             android:exported="false" />
         <activity
-            android:name=".CookieActivity"
+            android:name=".ClickerActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
