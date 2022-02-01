@@ -139,19 +139,21 @@ public class PianoTilesActivity extends AppCompatActivity {
                 writer.write(str.getBytes());
                 str = "0\n"; //Ligne 1
                 writer.write(str.getBytes());
-                writer.close();
-            }catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                String str = String.valueOf(pts) + "\n"; //Ligne 0
+                str = "0\n"; //Ligne 2
                 writer.write(str.getBytes());
                 writer.close();
             }catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        try {
+            String str = String.valueOf(pts) + "\n"; //Ligne 0
+            writer.write(str.getBytes());
+            writer.close();
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Toast.makeText(getApplicationContext(), "Sauvegarde réussie", Toast.LENGTH_SHORT).show();
     }
 

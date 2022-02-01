@@ -110,6 +110,8 @@ public class ClickerActivity extends AppCompatActivity {
                 writer.write(str.getBytes());
                 str = "0\n"; //Ligne 1
                 writer.write(str.getBytes());
+                str = "0\n"; //Ligne 2
+                writer.write(str.getBytes());
                 writer.close();
             }catch (IOException e) {
                 e.printStackTrace();
