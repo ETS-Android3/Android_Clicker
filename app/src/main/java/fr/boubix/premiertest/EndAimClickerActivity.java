@@ -129,11 +129,14 @@ public class EndAimClickerActivity extends AppCompatActivity {
     }
 
     private void setThemeDark(){
-        System.out.println("Theme : " + themeCheck);
         if (themeCheck.equals("sombre")){
             score.setTextColor(0xffffffff);
             textScore.setTextColor(0xffffffff);
             view.setBackgroundColor(0xff000000);
+        } else if (themeCheck.equals("galaxie")){
+            score.setTextColor(0xffffffff);
+            textScore.setTextColor(0xffffffff);
+            view.setBackgroundResource(R.drawable.background);
         }
     }
 }

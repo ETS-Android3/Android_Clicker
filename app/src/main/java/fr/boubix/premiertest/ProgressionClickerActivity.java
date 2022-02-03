@@ -119,8 +119,12 @@ public class ProgressionClickerActivity extends AppCompatActivity {
         if (res.get(4).equals("clair")){
             view.setBackgroundResource(R.color.white); //Set theme white
             text.setTextColor(0xff000000);
-        }else if (res.get(4).equals("sombre")){
+        } else if (res.get(4).equals("sombre")){
             view.setBackgroundResource(R.color.black); //Set theme black
+            text.setTextColor(0xffffffff);
+            back_button.setColorFilter(0xffffffff);
+        } else if (res.get(4).equals("galaxie")){
+            view.setBackgroundResource(R.drawable.background); //Set theme galaxie
             text.setTextColor(0xffffffff);
             back_button.setColorFilter(0xffffffff);
         }

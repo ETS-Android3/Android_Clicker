@@ -123,6 +123,10 @@ public class ProgressionAimClickerActivity extends AppCompatActivity {
             view.setBackgroundResource(R.color.black); //Set theme black
             text.setTextColor(0xffffffff);
             back_button.setColorFilter(0xffffffff);
+        } else if (res.get(4).equals("galaxie")){
+            view.setBackgroundResource(R.drawable.background); //Set theme galaxie
+            text.setTextColor(0xffffffff);
+            back_button.setColorFilter(0xffffffff);
         }
         counterTime = Integer.parseInt(res.get(1).toString());
         sound_check = res.get(3).toString();

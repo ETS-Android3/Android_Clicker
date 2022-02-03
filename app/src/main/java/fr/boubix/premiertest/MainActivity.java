@@ -139,9 +139,7 @@ public class MainActivity extends AppCompatActivity {
             writer.write(str.getBytes());
             str = "clair\n"; //Ligne 5
             writer.write(str.getBytes());
-            str = "switch_false\n"; //Ligne 6 theme
-            writer.write(str.getBytes());
-            str = "switch_false\n"; //Ligne 7 sons
+            str = "switch_false\n"; //Ligne 6 sons
             writer.write(str.getBytes());
             writer.close();
         }catch (IOException e) {
@@ -173,6 +171,8 @@ public class MainActivity extends AppCompatActivity {
             view.setBackgroundResource(R.color.white); //Set theme white
         }else if (res.get(4).equals("sombre")){
             view.setBackgroundResource(R.color.black); //Set theme black
+        } else if (res.get(4).equals("galaxie")){
+            view.setBackgroundResource(R.drawable.background);
         }
         sound_check = res.get(3).toString();
     }

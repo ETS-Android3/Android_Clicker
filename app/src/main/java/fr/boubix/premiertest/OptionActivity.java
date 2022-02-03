@@ -32,16 +32,17 @@ public class OptionActivity extends AppCompatActivity {
     private String level;
     private String sound;
     private String theme;
-    private String switchThemePosition;
     private String switchSoundPosition;
 
     private View viewMain;
     private Button colorButton;
     private EditText timeCibles;
     private Button levelButton;
+    private Button themeButton;
     private Switch switchSound;
     private Button supprButton;
     private Switch switchTheme;
+    private Switch switchThemePlanet;
     private TextView text1;
     private TextView text2;
     private TextView text3;
@@ -136,21 +137,24 @@ public class OptionActivity extends AppCompatActivity {
             }
         });
 
-        switchTheme.setOnClickListener(new View.OnClickListener() {
+        themeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (switchThemePosition.equals("switch_true") && !switchTheme.isChecked()){
-                    switchTheme.setText("Clair");
-                    theme = "clair";
-                    switchThemePosition = "switch_false";
-                    viewMain.setBackgroundResource(R.color.white);
-                    setTexColorLight();
-                } else if (switchThemePosition.equals("switch_false") && switchTheme.isChecked()){
-                    switchTheme.setText("Sombre");
+                if (theme.equals("clair")){
+                    themeButton.setText("Sombre");
                     theme = "sombre";
-                    switchThemePosition = "switch_true";
-                    viewMain.setBackgroundResource(R.color.black);
+                    viewMain.setBackgroundColor(0xff000000);
                     setTexColorDark();
+                } else if (theme.equals("sombre")){
+                    themeButton.setText("Galaxie");
+                    theme = "galaxie";
+                    viewMain.setBackgroundResource(R.drawable.background);
+                    setTexColorDark();
+                } else if (theme.equals("galaxie")){
+                    themeButton.setText("Clair");
+                    theme = "clair";
+                    viewMain.setBackgroundColor(0xffffffff);
+                    setTexColorLight();
                 }
             }
         });
@@ -220,8 +224,8 @@ public class OptionActivity extends AppCompatActivity {
         timeCibles = (EditText) findViewById(R.id.edit_cibles_time);
         levelButton = (Button) findViewById(R.id.button_cibles_level);
         switchSound = (Switch) findViewById(R.id.switch_sound);
+        themeButton = (Button) findViewById(R.id.theme_option);
         supprButton = (Button) findViewById(R.id.button_delete_data);
-        switchTheme = (Switch) findViewById(R.id.switch_theme);
         saveSupprButton = (Button) findViewById(R.id.button_delate_save);
         back = (ImageView) findViewById(R.id.back_button);
         text1 = (TextView) findViewById(R.id.textView1);
@@ -270,12 +274,9 @@ public class OptionActivity extends AppCompatActivity {
         switchSound.setChecked(false);
 
         //Theme
-        switchTheme.setText("Clair");
+        themeButton.setText("Clair");
         theme = "clair";
-        switchThemePosition = "switch_false";
         viewMain.setBackgroundResource(R.color.white);
-        switchTheme.setChecked(false);
-
         setTexColorLight();
     }
 
@@ -301,29 +302,24 @@ public class OptionActivity extends AppCompatActivity {
         if (res.get(4).equals("clair")){
             viewMain.setBackgroundResource(R.color.white); //Set theme white
             setTexColorLight();
-        }else if (res.get(4).equals("sombre")){
+        } else if (res.get(4).equals("sombre")){
             viewMain.setBackgroundResource(R.color.black); //Set theme black
-            switchTheme.setChecked(true);
-            switchThemePosition = "switch_true";
+            setTexColorDark();
+        }else if (res.get(4).equals("galaxie")){
+            viewMain.setBackgroundResource(R.drawable.background);
             setTexColorDark();
         }
 
+        //Set sound
         if (res.get(5).equals("switch_false")){
-            switchTheme.setChecked(false);
-            switchTheme.setText("Clair");
-        } else if (res.get(5).equals("switch_true")){
-            switchTheme.setText("Sombre");
-            switchTheme.setChecked(true);
-        }
-        if (res.get(6).equals("switch_false")){
             switchSound.setChecked(false);
             switchSound.setText("On");
-        } else if (res.get(6).equals("switch_true")){
+        } else if (res.get(5).equals("switch_true")){
             switchSound.setText("Off");
             switchSound.setChecked(true);
         }
-        switchThemePosition = res.get(5).toString();
-        switchSoundPosition = res.get(6).toString();
+        switchSoundPosition = res.get(5).toString();
+
 
         color = res.get(0).toString();
         //Set color button
@@ -349,7 +345,15 @@ public class OptionActivity extends AppCompatActivity {
         levelButton.setText(difficulte);
         sound_check = res.get(3).toString();
 
-        System.out.println("Switch : " + switchThemePosition + "  " + switchTheme);
+        //Set bouton theme
+        theme = res.get(4).toString();
+        if (theme.equals("clair")){
+            themeButton.setText("Clair");
+        } else if (theme.equals("sombre")){
+            themeButton.setText("Sombre");
+        } else {
+            themeButton.setText("Galaxie");
+        }
     }
 
     private void saveOptiontValues() throws FileNotFoundException {
@@ -388,37 +392,28 @@ public class OptionActivity extends AppCompatActivity {
             if (theme == null){
                 theme = "clair";
             }
-            if (switchTheme.isChecked()){
-                theme = "sombre";
-            }
             str = theme + "\n"; //Ligne 5
-            writer.write(str.getBytes());
-            if (switchThemePosition == null){
-                switchThemePosition = "switch_false";
-            }
-            str = switchThemePosition + "\n"; //Ligne 6
             writer.write(str.getBytes());
             if (switchSoundPosition == null){
                 switchSoundPosition = "switch_false";
             }
-            str = switchSoundPosition + "\n"; //Ligne 7
+            str = switchSoundPosition + "\n"; //Ligne 6
             writer.write(str.getBytes());
             writer.close();
         }catch (IOException e) {
             e.printStackTrace();
         }
         Toast.makeText(getApplicationContext(), "Sauvegarde réussie", Toast.LENGTH_SHORT).show();
-        System.out.println("Chemin : " + file);
     }
 
     private void setTexColorDark(){
         colorButton.setTextColor(0xffffffff);
         timeCibles.setTextColor(0xffffffff);
-        timeCibles.setBackgroundColor(0xff000000);
-        timeCibles.setTextColor(0xffffffff);
+        timeCibles.setBackgroundColor(0xffffffff);
+        timeCibles.setTextColor(0xff000000);
         levelButton.setTextColor(0xffffffff);
         switchSound.setTextColor(0xffffffff);
-        switchTheme.setTextColor(0xffffffff);
+        themeButton.setTextColor(0xff000000);
         supprButton.setTextColor(0xffffffff);
         saveSupprButton.setTextColor(0xffffffff);
         text1.setTextColor(0xffffffff);
@@ -438,8 +433,8 @@ public class OptionActivity extends AppCompatActivity {
         timeCibles.setTextColor(0xffffffff);
         timeCibles.setBackgroundColor(0xff000000);
         levelButton.setTextColor(0xff000000);
+        themeButton.setTextColor(0xff000000);
         switchSound.setTextColor(0xff000000);
-        switchTheme.setTextColor(0xff000000);
         supprButton.setTextColor(0xff000000);
         saveSupprButton.setTextColor(0xff000000);
         back.setColorFilter(0xff000000);

@@ -30,8 +30,6 @@ public class MultiPointActivity extends AppCompatActivity {
     private ImageView button1;
     private ImageView button2;
     private ImageView button3;
-    private File file;
-    private File path;
     private int counterTime;
     private String difficulte;
     private int coeff;
@@ -40,6 +38,7 @@ public class MultiPointActivity extends AppCompatActivity {
     private String sound_check;
     private int colorId;
     private String color;
+    private String theme;
                                                                                         //Rajouter un theme avec des boutons planete et un fond de galaxy
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,15 +124,20 @@ public class MultiPointActivity extends AppCompatActivity {
             view.setBackgroundResource(R.color.white); //Set theme white
             time.setTextColor(0xff000000);
             points.setTextColor(0xff000000);
-        }else if (res.get(4).equals("sombre")){
+        } else if (res.get(4).equals("sombre")){
             view.setBackgroundResource(R.color.black); //Set theme black
             time.setTextColor(0xffffffff);
             points.setTextColor(0xffffffff);
+        } else if (res.get(4).equals("galaxie")){
+            view.setBackgroundResource(R.drawable.background); //Set theme galaxie
+            time.setTextColor(0xffff0000);
+            points.setTextColor(0xffff0000);
         }
 
         counterTime = Integer.parseInt(res.get(1).toString());
         difficulte = res.get(2).toString();
         sound_check = res.get(3).toString();
+        theme = res.get(4).toString();
 
         color = res.get(0).toString();
         //Set color button
@@ -162,9 +166,18 @@ public class MultiPointActivity extends AppCompatActivity {
         button2 = (ImageView) findViewById(R.id.button2);
         button3 = (ImageView) findViewById(R.id.button3);
 
-        button1.setColorFilter(colorId);
-        button2.setColorFilter(colorId);
-        button3.setColorFilter(colorId);
+        if (theme.equals("galaxie")) {
+            button1.setImageResource(R.drawable.planete_rose);
+            button2.setImageResource(R.drawable.planete_rose);
+            button3.setImageResource(R.drawable.planete_rose);
+            view.setBackgroundResource(R.drawable.galaxy_background);
+        } else {
+            button1.setColorFilter(colorId);
+            button2.setColorFilter(colorId);
+            button3.setColorFilter(colorId);
+        }
+
+
     }
 
     public void checkButton(ImageView bt){

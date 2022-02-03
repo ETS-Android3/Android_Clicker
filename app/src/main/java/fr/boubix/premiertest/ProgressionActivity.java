@@ -127,6 +127,10 @@ public class ProgressionActivity extends AppCompatActivity {
             text.setTextColor(0xffffffff);
             img.setColorFilter(0xffffffff);
             viewMain.setBackgroundColor(0xff000000);
+        } else if (theme.equals("galaxie")){
+            text.setTextColor(0xffffffff);
+            img.setColorFilter(0xffffffff);
+            viewMain.setBackgroundResource(R.drawable.background);
         }
     }
 

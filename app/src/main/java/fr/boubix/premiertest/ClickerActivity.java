@@ -3,6 +3,7 @@ package fr.boubix.premiertest;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -27,6 +28,9 @@ public class ClickerActivity extends AppCompatActivity {
     private int counter;
     private String soundCheck;
     private boolean quit = false;
+    private int colorId;
+    private String color;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class ClickerActivity extends AppCompatActivity {
         this.cookie = (ImageView) findViewById(R.id.cookie);
         TextView time = (TextView) findViewById(R.id.text_time);
         MediaPlayer click_sound = MediaPlayer.create(this, R.raw.button_sound);
+        view = getWindow().getDecorView();
 
         setOptionValues();
 
@@ -153,5 +158,33 @@ public class ClickerActivity extends AppCompatActivity {
 
         counterTime = Integer.parseInt(res.get(1).toString());
         soundCheck = res.get(3).toString();
+
+        //Set theme
+        if (res.get(4).equals("clair")){
+            view.setBackgroundResource(R.color.white); //Set theme white
+        }else if (res.get(4).equals("sombre")){
+            view.setBackgroundResource(R.color.black); //Set theme black
+        }
+
+        color = res.get(0).toString();
+        //Set color button
+        if (color.equals("red")){
+            colorId = Color.argb(255, 255, 0, 0);
+        } else if (color.equals("blue")){
+            colorId = Color.argb(255, 0, 255, 255);
+        } else if (color.equals("green")){
+            colorId = Color.argb(255, 0, 255, 0);
+        } else if (color.equals("yellow")){
+            colorId = Color.argb(255, 255, 255, 0);
+        } else if (color.equals("pink")){
+            colorId = Color.argb(255, 255, 0, 255);
+        }
+
+        if (res.get(4).equals("clair") || res.get(4).equals("sombre")) {
+            cookie.setColorFilter(colorId);
+        } else {
+            cookie.setImageResource(R.drawable.planete);
+            view.setBackgroundResource(R.drawable.background_clicker);
+        }
     }
 }
